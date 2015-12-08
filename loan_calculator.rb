@@ -32,7 +32,7 @@ Kernel.puts('Welcome to the Mortgage Calculator!')
 Kernel.puts('=' * 35)
 
 loop do
-  prompt("What is your total loan amount?")
+  prompt('What is your total loan amount?')
   loan_amount = ''
   loop do
     loan_amount = Kernel.gets().chomp()
@@ -43,29 +43,28 @@ loop do
     end
   end
 
-  prompt("What is your Annual Percentage Rate (APR)?")
-  prompt("For example, you can input 5.5 for 5.5%")
+  prompt('What is your Annual Percentage Rate (APR)?')
+  prompt('For example, you can input 5.5 for 5.5%')
   annual_interest_rate = ''
   loop do
     annual_interest_rate = Kernel.gets().chomp()
     if valid_number?(annual_interest_rate)
       break
     else
-      prompt("Please enter a valid APR.")
+      prompt('Please enter a valid APR.')
     end
   end
 
-  prompt("What is the duration of your loan?")
+  prompt('What is the duration of your loan?')
   loan_duration = ''
   loop do
     loan_duration = Kernel.gets().chomp()
     if valid_number?(loan_duration)
       break
     else
-      prompt("Please enter a valid number.")
+      prompt('Please enter a valid number.')
     end
   end
-
 
   # logic
   annual_interest_rate  = annual_interest_rate.to_f / 100
@@ -73,25 +72,26 @@ loop do
   months                = loan_duration.to_f * 12
 
   monthly_payment = loan_amount.to_f() *
-                    (monthly_interest_rate * (1 + monthly_interest_rate) ** months) /
-                    ((1 + monthly_interest_rate) ** months - 1)
+                    (monthly_interest_rate *
+                    (1 + monthly_interest_rate)**months) /
+                    ((1 + monthly_interest_rate)**months - 1)
 
   output = <<-MSG
-    #{'-'*35}
+    #{'-' * 35}
     Your mortgage details
-    #{'-'*35}
+    #{'-' * 35}
     Total loan amount: $#{loan_amount}
     APR:               #{annual_interest_rate * 100}%
     Years:             #{(months / 12).to_i}
-    #{'-'*35}
+    #{'-' * 35}
     Monthly payment:   $#{monthly_payment.round(2)}
-    #{'-'*35}
+    #{'-' * 35}
   MSG
 
   Kernel.puts(output)
 
-  prompt("Would you like to calculate any more monthly payments? [y] yes [n] no")
+  prompt('Would you like to calculate any more monthly payments?')
+  prompt('[y] yes [n] no')
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?('y')
 end
-
