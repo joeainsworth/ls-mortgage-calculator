@@ -8,8 +8,8 @@
 # L = loan_amount
 # c = monthly interest rate
 # n = months
-
-require 'pry'
+#
+# require 'pry'
 
 def prompt(msg)
   Kernel.puts("=> #{msg}")
@@ -76,7 +76,19 @@ loop do
                     (monthly_interest_rate * (1 + monthly_interest_rate) ** months) /
                     ((1 + monthly_interest_rate) ** months - 1)
 
-  prompt("Your monthly payments are $#{format('%0.2f', monthly_payment)}")
+  output = <<-MSG
+    #{'-'*35}
+    Your mortgage details
+    #{'-'*35}
+    Total loan amount: $#{loan_amount}
+    APR:               #{annual_interest_rate * 100}%
+    Years:             #{(months / 12).to_i}
+    #{'-'*35}
+    Monthly payment:   $#{monthly_payment.round(2)}
+    #{'-'*35}
+  MSG
+
+  Kernel.puts(output)
 
   prompt("Would you like to calculate any more monthly payments? [y] yes [n] no")
   answer = Kernel.gets().chomp()
