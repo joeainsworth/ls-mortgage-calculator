@@ -1,16 +1,3 @@
-# Ask the user for the following
-# 1. Loan amount
-# 2. Annual Percentage Rate (APR)
-# 3. The loan duration
-#
-# P = L[c(1 + c)n]/[(1 + c)n - 1]
-#
-# L = loan_amount
-# c = monthly interest rate
-# n = months
-#
-# require 'pry'
-
 def prompt(msg)
   Kernel.puts("=> #{msg}")
 end
@@ -27,44 +14,23 @@ def valid_number?(input)
   integer?(input) || float?(input)
 end
 
+def get_input(msg)
+  prompt(msg)
+  loop do
+    user_input = Kernel.gets().chomp()
+    return user_input if valid_number?(input)
+    prompt('Please input a valid amount.')
+  end
+end
+
 Kernel.puts('=' * 35)
 Kernel.puts('Welcome to the Mortgage Calculator!')
 Kernel.puts('=' * 35)
 
 loop do
-  prompt('What is your total loan amount?')
-  loan_amount = ''
-  loop do
-    loan_amount = Kernel.gets().chomp()
-    if valid_number?(loan_amount)
-      break
-    else
-      prompt("Please input a valid amount.")
-    end
-  end
-
-  prompt('What is your Annual Percentage Rate (APR)?')
-  prompt('For example, you can input 5.5 for 5.5%')
-  annual_interest_rate = ''
-  loop do
-    annual_interest_rate = Kernel.gets().chomp()
-    if valid_number?(annual_interest_rate)
-      break
-    else
-      prompt('Please enter a valid APR.')
-    end
-  end
-
-  prompt('What is the duration of your loan?')
-  loan_duration = ''
-  loop do
-    loan_duration = Kernel.gets().chomp()
-    if valid_number?(loan_duration)
-      break
-    else
-      prompt('Please enter a valid number.')
-    end
-  end
+  loan_amount = get_input('What is your total loan amount?')
+  annual_interest_rate = get_input('What is your APR? (i.e. use 5.5 for 5.5%)')
+  loan_duration = get_input('What is the duration of your loan? (in years)')
 
   # logic
   annual_interest_rate  = annual_interest_rate.to_f / 100
